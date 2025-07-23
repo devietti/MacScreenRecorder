@@ -38,6 +38,15 @@ func main() {
         moviePath += ".mov"
     }
     
+    if FileManager.default.fileExists(atPath: moviePath) {
+        do {
+            try FileManager.default.removeItem(atPath: moviePath)
+        } catch {
+            print("Error removing existing movie at \(moviePath)")
+            exit(1)
+        }
+    }
+    
     signal(SIGINT, handleSignal)
     signal(SIGTERM, handleSignal)
     signal(SIGUSR1, handleSignal)
